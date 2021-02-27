@@ -10,6 +10,8 @@ const cleanNotes = users => ({
     id: users.id,
     name: users.name,
     password: xss(users.password),
+    test: users.test,
+    questions: users.questions
 })
 
 authRouter
@@ -23,11 +25,13 @@ authRouter
         .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { name, password } = req.body
+        const { name, password, test, questions } = req.body
         const newUser = {};
         newUser.name = name;
         newUser.password = password;
-        
+        newUser.test = test;
+        newUser.questions = questions;
+
         for (const [key, value] of Object.entries(newUser)) {
             if (value == null) {
                 return res.status(400).json({
@@ -72,14 +76,14 @@ authRouter
           res.json(cleanNotes(res.user))  
         })
     .patch(jsonParser, (req, res, next) => {
-            const { name } = req.body
-            const userToUpdate = { name, password }
+            const { name, password, test, questions } = req.body
+            const userToUpdate = { name, password, test, questions }
 
             const numberOfValues = Object.values(userToUpdate).filter(Boolean).length
             if (numberOfValues === 0)
               return res.status(400).json({
                 error: {
-                  message: `Request body must contain 'name', or 'password'`
+                  message: `Request body must contain 'name', 'password', 'test' or 'questions'`
                 }
               })
 
