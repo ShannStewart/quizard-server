@@ -2,12 +2,13 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+//const { CLIENT_ORIGIN } = require('./config');
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 
 const authRouter = require('./auth/auth-router')
 const quizzesRouter = require('./quizzes/quizzes-router')
-const questionsRouter = require('./questions/questions-router')
+const questionsRouter = require('./questions/questions-router') 
 
 const app = express()
 

@@ -32,7 +32,6 @@ questionsRouter
         newQuestion.question = question;
         newQuestion.answer = answer;
         newQuestion.choices = choices;
-        newQuestion.test = test;
         newQuestion.userid = userid;
         newQuestion.used = used;
 
@@ -44,9 +43,12 @@ questionsRouter
                   })
             }
         }
+
+        newQuestion.test = test;
+
         //console.log('test:')
 
-        questionServices.insertQuestions(
+        questionServices.insertQuestion(
             req.app.get('db'),  
             newQuestion
         )
