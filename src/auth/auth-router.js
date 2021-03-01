@@ -10,8 +10,6 @@ const cleanNotes = users => ({
     id: users.id,
     name: users.name,
     password: xss(users.password),
-    test: users.test,
-    questions: users.questions
 })
 
 authRouter
@@ -25,12 +23,10 @@ authRouter
         .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { name, password, test, questions } = req.body
+        const { name, password } = req.body
         const newUser = {};
         newUser.name = name;
         newUser.password = password;
-        newUser.test = test;
-        newUser.questions = questions;
 
         for (const [key, value] of Object.entries(newUser)) {
             if (value == null) {
@@ -76,8 +72,8 @@ authRouter
           res.json(cleanNotes(res.user))  
         })
     .patch(jsonParser, (req, res, next) => {
-            const { name, password, test, questions } = req.body
-            const userToUpdate = { name, password, test, questions }
+            const { name, password } = req.body
+            const userToUpdate = { name, password }
 
             const numberOfValues = Object.values(userToUpdate).filter(Boolean).length
             if (numberOfValues === 0)

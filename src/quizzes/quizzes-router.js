@@ -9,10 +9,10 @@ const jsonParser = express.json();
 const cleanNotes = quizzes => ({
     id: quizzes.id,
     name: quizzes.name,
-    questions: questions,
     count: quizzes.count,
     modified: quizzes.modified,
-    published: quizzes.published
+    published: quizzes.published,
+    userid: quizzes.userid,
 })
 
 quizzesRouter
@@ -26,13 +26,13 @@ quizzesRouter
         .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { name, questions, count, modified, published } = req.body
+        const { name, count, modified, published, userid } = req.body
         const newQuiz = {};
         newQuiz.name = name;
-        newQuiz.questions = questions;
         newQuiz.count = count;
         newQuiz.modified = modified;
         newQuiz.published = published;
+        newQuiz.userid = userid
 
 
         for (const [key, value] of Object.entries(newQuiz)) {
@@ -79,14 +79,14 @@ quizzesRouter
           res.json(cleanNotes(res.quiz))  
         })
     .patch(jsonParser, (req, res, next) => {
-            const { name, questions, count, modified, published } = req.body
-            const quizToUpdate = { name, questions, count, modified, published }
+            const { name, count, modified, published, userid } = req.body
+            const quizToUpdate = { name, count, modified, published, userid }
 
             const numberOfValues = Object.values(quizToUpdate).filter(Boolean).length
             if (numberOfValues === 0)
               return res.status(400).json({
                 error: {
-                  message: `Request body must contain 'name', 'password', 'test' or 'questions'`
+                  message: `Request body must contain 'name', 'password' or 'test'`
                 }
               })
 
