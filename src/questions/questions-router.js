@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const xss = require('xss')
-const questionService = require('./questions-service');
+const questionServices = require('./questions-service');
 
 const questionsRouter = express.Router();
 const jsonParser = express.json();

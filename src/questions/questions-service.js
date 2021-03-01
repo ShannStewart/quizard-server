@@ -1,4 +1,4 @@
-const questionService = {
+const questionServices = {
     getAllQuestions(knex) {
         return knex
         .select('*')
@@ -32,4 +32,4 @@ const questionService = {
     }
 }
 
-module.exports = questionService;
+module.exports = questionServices;
