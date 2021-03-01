@@ -7,6 +7,7 @@ const { NODE_ENV } = require('./config')
 
 const authRouter = require('./auth/auth-router')
 const quizzesRouter = require('./quizzes/quizzes-router')
+const questionsRouter = require('./questions/questions-router')
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use(cors())
 
 app.use('/api/auth', authRouter)
 app.use('/api/quizzes/', quizzesRouter)
+app.use('/api/questions/', questionsRouter)
 
 app.get('/', (req, res) => {
     res.send('Hello, world!')
